@@ -7,14 +7,26 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ramsey/uuid": "^4.7",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
+        "symfony/event-dispatcher": "7.1.*",
+        "symfony/filesystem": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
+        "symfony/messenger": "7.1.*",
         "symfony/runtime": "7.1.*",
         "symfony/yaml": "7.1.*"
     },
     "require-dev": {
+        "phpstan/phpstan": "^1.11",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-symfony": "^5.2",
+        "symfony/browser-kit": "7.1.*",
+        "symfony/css-selector": "7.1.*",
+        "symfony/maker-bundle": "^1.60",
+        "symfony/phpunit-bridge": "^7.1",
+        "symplify/easy-coding-standard": "^12.3"
     },
     "config": {
         "allow-plugins": {
@@ -54,6 +66,19 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "phpstan": "vendor/bin/phpstan analyse -l 6 src tests",
+        "psalm": "vendor/bin/psalm --show-info=true",
+        "ecs": "vendor/bin/ecs check src tests --fix",
+        "tests": "vendor/bin/phpunit",
+        "code-style": [
+            "@phpstan",
+            "@psalm",
+            "@ecs"
+        ],
+        "check-all": [
+            "@code-style",
+            "@tests"
         ]
     },
     "conflict": {

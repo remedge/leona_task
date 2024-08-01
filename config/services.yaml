@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    db_path: '%env(FILE_STORAGE_DB_PATH)%'
 
 services:
     # default configuration for services in *this* file
@@ -22,3 +23,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\User\Infrastructure\FileStorage\FileStorageUserRepository:
+        arguments:
+            $dbPath: '%env(FILE_STORAGE_DB_PATH)%'
+
+    App\Product\Infrastructure\FileStorage\FileStorageProductRepository:
+        arguments:
+            $dbPath: '%env(FILE_STORAGE_DB_PATH)%'
+
+    App\Product\Infrastructure\FileStorage\FileStoragePolicyRepository:
+        arguments:
+            $dbPath: '%env(FILE_STORAGE_DB_PATH)%'
+
+    App\Product\Infrastructure\FileStorage\FileStorageIssuedProductRepository:
+        arguments:
+            $dbPath: '%env(FILE_STORAGE_DB_PATH)%'
